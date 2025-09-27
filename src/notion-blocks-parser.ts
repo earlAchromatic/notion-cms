@@ -35,7 +35,6 @@ const blockRenderers = z.object({
   LinkToPageBlock: z.function().returns(z.string()),
   NumberedListItemBlock: z.function().returns(z.string()),
   ParagraphBlock: z.function().returns(z.string()),
-  PDFBlock: z.function().returns(z.string()),
   QuoteBlock: z.function().returns(z.string()),
   RichText: z.function().returns(z.string()),
   RichTextEquation: z.function().returns(z.string()),
@@ -144,11 +143,6 @@ export default class NotionBlocksParser {
       blockRenderers?.FileBlock,
       this.mdParser.parseFileBlock.bind(this.mdParser) as Renderer,
     ) as (block: FileBlock) => string
-
-    this.mdParser.parsePdfBlock = modularize(
-      blockRenderers?.PDFBlock,
-      this.mdParser.parsePdfBlock.bind(this.mdParser) as Renderer,
-    ) as (block: PDFBlock) => string
 
     // Warning: this parser is used in many of the other parsers internally.
     // Modding it could affect the others unexpectedly.
